@@ -1,8 +1,0 @@
-INDEX VERSION 1.4+D:\Study\Own project\Ecom\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-3973875999.index
-225277752.index
-435793374.index
-2656206589.index
-3312535780.index
-2284633757.index
-2966621744.index

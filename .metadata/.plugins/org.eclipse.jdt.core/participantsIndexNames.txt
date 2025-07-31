@@ -1,3 +1,0 @@
-INDEX VERSION 1.134
-D:\Study\Own project\Ecom\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2284633757.index
-\Ecomp\src\main\java
