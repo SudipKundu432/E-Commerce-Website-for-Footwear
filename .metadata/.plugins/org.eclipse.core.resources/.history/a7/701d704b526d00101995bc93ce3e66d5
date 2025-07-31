@@ -1,0 +1,51 @@
+package com.example.Ecomp.controller;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Controller
+public class OrderController {
+
+	@Value("${razorpay.key.id}") 
+	private String razorpayKeyId;
+	
+	@GetMapping("/pay")
+	public String homePage() {
+		return "payment.jsp";
+		}
+
+
+	/* @PostMapping("/createOrder")
+	public String createOrder (@RequestParam int amount, Model model) {
+		// No API call direct pass amount to checkout
+		model.addAttribute("key", razorpayKeyId);
+		model.addAttribute("amount", amount);
+		return "checkout.jsp";
+	}*/
+
+	@PostMapping("/createOrder")
+	public String createOrder(
+	        @RequestParam int amount,
+	        @RequestParam String name,
+	        @RequestParam String email,
+	        @RequestParam String contact,
+	        Model model) {
+	
+	    model.addAttribute("key", razorpayKeyId);
+	    model.addAttribute("amount", amount);
+	    model.addAttribute("custName", name);
+	    model.addAttribute("custEmail", email);
+	    model.addAttribute("custContact", contact);
+	
+	    return "checkout.jsp";
+	}
+	@GetMapping("/orderSuccess")
+	public String orderSuccess (@RequestParam String payment_id, Model model) {
+	model.addAttribute("paymentId", payment_id);
+	
+	return "order-complete.jsp";
+	}
+}

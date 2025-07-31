@@ -1,0 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title></title>
+</head>
+<body>
+<form action="" method="post">
+<h2>Order Details:</h2>
+Enter Your Address to Deliver:<input type="text" name="address">
+<input type="submit" value="Place Order">
+</form>
+</body>
+</html>

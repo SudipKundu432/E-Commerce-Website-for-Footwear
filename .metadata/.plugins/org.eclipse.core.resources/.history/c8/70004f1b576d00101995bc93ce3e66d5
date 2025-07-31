@@ -1,0 +1,73 @@
+package com.example.Ecomp.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.Ecomp.dao.OrderDao;
+import com.example.Ecomp.dao.ProductDao;
+import com.example.Ecomp.dao.UserDao;
+import com.example.Ecomp.model.Order;
+import com.example.Ecomp.model.Product;
+import com.example.Ecomp.model.User;
+
+@Controller
+public class OrderController {
+@Autowired
+UserDao ud;
+@Autowired
+ProductDao pd;
+@Autowired
+OrderDao od;
+@Value("${razorpay.key.id}")
+private String razorpayKeyId;
+@GetMapping("/paymentpage")
+public String homePage() {
+    return "paymentPage";
+}
+
+@PostMapping("/createOrder")
+public String createOrder(
+        @RequestParam int amount,
+        @RequestParam String name,
+        @RequestParam String email,
+        @RequestParam String contact,
+        Model model) {
+
+    model.addAttribute("key", razorpayKeyId);
+    model.addAttribute("amount", amount);
+    model.addAttribute("custName", name);
+    model.addAttribute("custEmail", email);
+    model.addAttribute("custContact", contact);
+
+    return "checkout";
+}
+
+@RequestMapping("/orderdetails")
+public String orderDetails()
+{
+	return "orderDetails";
+}
+
+@PostMapping("/order")
+public String setOrderDetails(String custId,String productId,@RequestParam("address")String address)
+{
+	User user=ud.findById(custId).get();
+	Product prod=pd.findById(productId).get();
+	Order order=new Order();
+	order.setCustId(user.getEmail());
+	order.setName(user.getName());
+	order.setPhno(user.getPhno());
+	order.setAddress(address);
+	order.setProdId(prod.getId());
+	order.setProdName(prod.getName());
+	order.setPrice(prod.getPrice());
+	od.save(order);
+	return "";
+}
+}
